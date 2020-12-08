@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "request": "1.9.8",
-    "konyvtar-js": "1.5.1",
-    "lodash": "4.17.5"
+    "jquery": "^3.5.1"
   }
 }
