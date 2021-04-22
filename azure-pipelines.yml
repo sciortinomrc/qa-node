@@ -33,5 +33,5 @@ jobs:
   - task: Meterian Scanner@0
     displayName: 'Meterian Scanner Test'
     inputs:
-      working_directory: "${{ parameters.ProjectWorkingDirectory }}"
+      working_directory: "$(Build.SourcesDirectory)"
       client_options: "--debug --unbound"
