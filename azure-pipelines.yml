@@ -1,0 +1,37 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+jobs:
+- job: meterian_analysis
+  displayName: "Meterian Security Analysis"
+  
+  pool:
+    vmImage: ubuntu-16.04
+
+  steps:
+  - checkout: self
+  - task: Bash@3
+    displayName: 'set meterian token'
+    inputs:
+      targetType: inline
+      script: |
+        ## deploy variables
+        echo "##vso[task.setvariable variable=METERIAN_API_TOKEN;isOutput=false]c48ce48c-22a5-47e6-96ee-fe5f66f43812" 
+
+  - task: DockerInstaller@0
+    inputs:
+      dockerVersion: '20.10.6'
+
+  - task: Meterian Scanner@0
+    displayName: 'Meterian Scanner Test'
+    inputs:
+      working_directory: "${{ parameters.ProjectWorkingDirectory }}"
+      client_options: "--debug --unbound"
